@@ -13,14 +13,9 @@ import org.example.Word.model.UInfo;
  **/
 @Getter
 @Setter
-public class AdminInfo_PO {
+public class AdminRegister_PO {
 
     private String username;
 
     private String password;
-
-    private String nickName;
-
-    private String email;
-
 }

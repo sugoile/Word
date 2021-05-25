@@ -1,6 +1,6 @@
 package org.example.Word.service;
 
-import org.example.Word.Po.AdminInfo_PO;
+import org.example.Word.Po.AdminRegister_PO;
 import org.example.Word.dto.AdminInfo_Param;
 import org.example.Word.model.UAdmin;
 
@@ -11,7 +11,7 @@ import org.example.Word.model.UAdmin;
  * @date: 2021/4/19
  **/
 public interface IndexService {
-    AdminInfo_Param login(String username, String passwrd);
+    AdminInfo_Param login(String username, String passwrod);
 
-    int Register(AdminInfo_PO adminInfo_po);
+    int Register(String username, String passwrod);
 }

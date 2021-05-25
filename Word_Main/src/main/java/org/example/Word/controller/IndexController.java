@@ -1,6 +1,6 @@
 package org.example.Word.controller;
 
-import org.example.Word.Po.AdminInfo_PO;
+import org.example.Word.Po.AdminRegister_PO;
 import org.example.Word.api.REData;
 import org.example.Word.config.JasyptUtils;
 import org.example.Word.dto.AdminInfo_Param;
@@ -32,18 +32,21 @@ public class IndexController {
                         @RequestParam("password") String password) {
         AdminInfo_Param result = indexService.login(username, password);
         if (result == null) {
-            return REData.failed("没有该账号");
+            return REData.failed("没有该账号或账号密码出错");
         }else {
             return REData.success("登录成功", result);
         }
     }
 
     @PostMapping("/register")
-    public REData Register(@RequestBody AdminInfo_PO adminInfo_po) {
-        int result = indexService.Register(adminInfo_po);
-        if (result <= 0) {
+    public REData Register(@RequestParam("username") String username, @RequestParam("password") String password) {
+        int result = indexService.Register(username, password);
+        if (result < 0) {
+            return REData.failed("注册失败,账号已存在");
+        }else if (result == 0) {
             return REData.failed("注册失败");
-        }else {
+        }
+        else {
             return REData.success("注册成功", result);
         }
     }

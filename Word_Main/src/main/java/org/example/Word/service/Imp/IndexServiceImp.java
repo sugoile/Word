@@ -1,6 +1,6 @@
 package org.example.Word.service.Imp;
 
-import org.example.Word.Po.AdminInfo_PO;
+import org.example.Word.Po.AdminRegister_PO;
 import org.example.Word.config.JasyptUtils;
 import org.example.Word.dto.AdminInfo_Param;
 import org.example.Word.mapper.UAdminMapper;
@@ -33,10 +33,15 @@ public class IndexServiceImp implements IndexService {
     @Override
     public AdminInfo_Param login(String username, String password) {
         UAdminExample uAdminExample = new UAdminExample();
-        uAdminExample.createCriteria().andUsernameEqualTo(username).andPasswordEqualTo(password);
+        uAdminExample.createCriteria().andUsernameEqualTo(username);
         List<UAdmin> uAdmins = uAdminMapper.selectByExample(uAdminExample);
         if(uAdmins.size() == 0) return null;
+        String password1 = uAdmins.get(0).getPassword();
+        if(!jasyptUtils.decyptPwd(password1).equals(password)){
+            return null;
+        }
         UAdmin uAdmin = uAdmins.get(0);
+        uAdmin.setPassword(password);
         UInfo uInfo = uInfoMapper.selectByPrimaryKey(uAdmin.getInfoId());
 
         AdminInfo_Param adminInfo_param = new AdminInfo_Param();
@@ -46,20 +51,15 @@ public class IndexServiceImp implements IndexService {
     }
 
     @Override
-    public int Register(AdminInfo_PO adminInfo_po) {
-        UInfo uInfo = new UInfo();
-        uInfo.setEmail(adminInfo_po.getEmail());
-        uInfo.setNickName(adminInfo_po.getNickName());
-        int count = uInfoMapper.insertSelective(uInfo);
-
-        if(count > 0){
-            UAdmin uAdmin = new UAdmin();
-            String password = jasyptUtils.encryptPwd(adminInfo_po.getUsername());
-            uAdmin.setUsername(adminInfo_po.getUsername());
-            uAdmin.setPassword(password);
-            uAdmin.setInfoId(uInfo.getId());
-            return uAdminMapper.insertSelective(uAdmin);
-        }
-        else return 0;
+    public int Register(String username, String password) {
+        UAdminExample uAdminExample = new UAdminExample();
+        uAdminExample.createCriteria().andUsernameEqualTo(username);
+        List<UAdmin> uAdmins = uAdminMapper.selectByExample(uAdminExample);
+        if(uAdmins.size() > 0) return -1;
+        UAdmin uAdmin = new UAdmin();
+        String Truepassword = jasyptUtils.encryptPwd(password);
+        uAdmin.setUsername(username);
+        uAdmin.setPassword(Truepassword);
+        return uAdminMapper.insertSelective(uAdmin);
     }
 }
