@@ -3,6 +3,7 @@ package org.example.Word.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.Word.Po.WBookChoose_PO;
 import org.example.Word.model.WBook;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public class Classification {
 
     private String classification;
 
-    private List<WBook> wBooks;
+    private List<WBookChoose_PO> wBooks;
 
 }

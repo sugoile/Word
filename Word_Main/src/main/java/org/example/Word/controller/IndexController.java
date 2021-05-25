@@ -1,5 +1,6 @@
 package org.example.Word.controller;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.example.Word.Po.AdminRegister_PO;
 import org.example.Word.api.REData;
 import org.example.Word.config.JasyptUtils;
@@ -49,6 +50,16 @@ public class IndexController {
         else {
             return REData.success("注册成功", result);
         }
+    }
+
+    @GetMapping("/recordTimeForWord/{uid}")
+    public REData RecordTimeForWord(@PathVariable("uid") long uid){
+        return REData.success("查询本月单词数成功(以天计数)",  indexService.RecordTimeForWord(uid));
+    }
+
+    @GetMapping("/bookLearnedCount/{uid}")
+    public REData BookLearnedCount(@PathVariable("uid") long uid){
+        return REData.success("查询学习的单词书与对应单词数成功",  indexService.BookLearnedCount(uid));
     }
 
 //    @GetMapping("/test")

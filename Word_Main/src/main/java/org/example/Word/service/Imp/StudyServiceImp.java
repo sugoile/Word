@@ -9,6 +9,7 @@ import org.example.Word.service.StudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -42,28 +43,24 @@ public class StudyServiceImp implements StudyService {
     private WLearnedwordMapper wLearnedwordMapper;
 
     @Override
-    public List<List<Study_Word>> StudyWordList(long bid, int wordnum) {
+    public List<List<Study_Word>> StudyWordList(long uid, long bid, int wordnum) {
         List<List<Study_Word>> wWords = new ArrayList<>();
         WBook wBook = wBookMapper.selectByPrimaryKey(bid);
         String range = wBook.getRanges();
         String[] ranges = range.split(",");
         int min = Integer.parseInt(ranges[0]);
         int max = Integer.parseInt(ranges[1]);
-        Set<Long> set = new HashSet<>();
-        int count = 0;
+
         WLearnedwordExample wLearnedwordExample = new WLearnedwordExample();
-        wLearnedwordExample.createCriteria().andBidEqualTo(bid).andIscorrectEqualTo(0);
+        wLearnedwordExample.createCriteria().andBidEqualTo(bid).andUidEqualTo(uid);
         List<WLearnedword> wLearnedwords = wLearnedwordMapper.selectByExample(wLearnedwordExample);
 
-        if(wLearnedwords.size() >= 20){
-            for(int i = 0; i < 5; i++){
-                Long wid = wLearnedwords.get(i).getWid();
-                set.add(wid);
-                List<Study_Word> studyWords = this.getStudyWords(wid);
-                wWords.add(studyWords);
-                count++;
-            }
+        Set<Long> set = new HashSet<>();
+        for (int i = 0; i < wLearnedwords.size(); i++) {
+            set.add(wLearnedwords.get(i).getWid());
         }
+
+        int count = 0;
 
         while(count < wordnum){
             int t = (int)(Math.random () * (max - min + 1));
@@ -73,19 +70,93 @@ public class StudyServiceImp implements StudyService {
             }else{
                 set.add(wBookWord.getWid());
                 Long WID = wBookWord.getWid();
-//                Study_Word trueWord = studyDao.selectTrueWord(WID);
-//                trueWord.setTrueWord(true);
-//                List<Study_Word> otherWord = studyDao.otherFalseWord(WID);
-//                for(Study_Word w : otherWord){
-//                    w.setTrueWord(false);
-//                }
-//                otherWord.add(trueWord);
                 List<Study_Word> studyWords = this.getStudyWords(WID);
                 wWords.add(studyWords);
                 count++;
             }
         }
         return wWords;
+    }
+
+    @Override
+    public List<List<Study_Word>> RandomTest() {
+        List<List<Study_Word>> wWords = new ArrayList<>();
+        Set<Long> set = new HashSet<>();
+        List<Long> wordNum = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            long l = (long) (Math.random() * (10400));
+            set.add(l);
+            wordNum.add(l);
+        }
+        int count = 0;
+
+        while(count < wordNum.size()){
+            WBookWord wBookWord = wBookWordMapper.selectByPrimaryKey(wordNum.get(count));
+            if (set.contains(wBookWord.getWid())){
+                continue;
+            }else{
+                Long WID = wBookWord.getWid();
+                List<Study_Word> studyWords = this.getStudyWords(WID);
+                wWords.add(studyWords);
+                count++;
+            }
+        }
+        return wWords;
+    }
+
+    @Override
+    public List<List<Study_Word>> LastReciteWord(long uid) {
+        List<List<Study_Word>> wWords = new ArrayList<>();
+        WLearnedwordExample wLearnedwordExample = new WLearnedwordExample();
+        wLearnedwordExample.createCriteria().andRecentEqualTo(1).andUidEqualTo(uid);
+        List<WLearnedword> wLearnedwords = wLearnedwordMapper.selectByExample(wLearnedwordExample);
+
+        if(wLearnedwords.size() == 0) return wWords;
+
+        WLearnedwordExample wLearnedwordExample1 = new WLearnedwordExample();
+        wLearnedwordExample1.createCriteria().andStudyTimeEqualTo(wLearnedwords.get(0).getStudyTime())
+                                            .andUidEqualTo(uid);
+        List<WLearnedword> wLearnedwords1 = wLearnedwordMapper.selectByExample(wLearnedwordExample1);
+
+        int count = wLearnedwords1.size();
+        if(count > 10) count = 10;
+
+        Set<Long> set = new HashSet<>();
+        for (int i = 0; i < count; i++){
+            set.add(wLearnedwords1.get(i).getWid());
+        }
+
+        for (int i = 0; i < count; i++){
+            List<Study_Word> study_words = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                int t = (int)(Math.random () * (10000));
+                if(set.contains((long)t)){
+                    continue;
+                }
+                else{
+                    Study_Word study_word = this.setReviewStudyWord(t, false);
+                    set.add(study_word.getId());
+                    study_words.add(study_word);
+                }
+            }
+
+            Study_Word study_word = this.setReviewStudyWord(wLearnedwords1.get(i).getBid(), true);
+            study_words.add(study_word);
+            set.add(study_word.getId());
+            wWords.add(study_words);
+        }
+        return wWords;
+    }
+
+
+    public Study_Word setReviewStudyWord(long wid, boolean flag){
+        WWord wWord = wWordMapper.selectByPrimaryKey(wid);
+        Study_Word study_word = new Study_Word();
+        study_word.setId(wWord.getId());
+        study_word.setTrueWord(flag);
+        study_word.setMeaningstr(wWord.getMeaningstr());
+        study_word.setSpell(wWord.getSpell());
+        return study_word;
     }
 
     @Override
@@ -110,18 +181,43 @@ public class StudyServiceImp implements StudyService {
         if(existBORU < 0){
             return existBORU;
         }
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
+        String day = simpleDateFormat.format(date);
+        String[] Year_Month_Day = simpleDateFormat.format(date).split("-");
 
+        WLearnedwordExample wLearnedwordExample = new WLearnedwordExample();
+        wLearnedwordExample.createCriteria().andUidEqualTo(uid).andRecentEqualTo(1);
+        List<WLearnedword> wLearnedwords = wLearnedwordMapper.selectByExample(wLearnedwordExample);
+        if(wLearnedwords.size() > 0){
+            this.setRecentFlag(wLearnedwords.get(0).getId(), 0);
+        }
+
+        long id = -1;
         for(CorrectWord word : words){
             WLearnedword wLearnedword = new WLearnedword();
             wLearnedword.setBid(bid);
             wLearnedword.setUid(uid);
             wLearnedword.setWid(word.getId());
             wLearnedword.setIscorrect(word.getIscorrect());
+            wLearnedword.setStudyTimeYear(Integer.parseInt(Year_Month_Day[0]));
+            wLearnedword.setStudyTimeMonth(Integer.parseInt(Year_Month_Day[1]));
+            wLearnedword.setStudyTimeDay(Integer.parseInt(Year_Month_Day[2]));
+            wLearnedword.setStudyTime(day);
             int res = wLearnedwordMapper.insertSelective(wLearnedword);
             count += res;
+            id = wLearnedword.getId();
         }
 
+        this.setRecentFlag(id, 1);
         return count;
+    }
+
+    public void setRecentFlag(long id, int flag){
+        WLearnedword wLearnedword = new WLearnedword();
+        wLearnedword.setId(id);
+        wLearnedword.setRecent(flag);
+        wLearnedwordMapper.updateByPrimaryKeySelective(wLearnedword);
     }
 
     @Override
@@ -191,6 +287,7 @@ public class StudyServiceImp implements StudyService {
         }
         return 1;
     }
+
 
     public int isExistBORU(long bid, long uid){
         WBook wBook = wBookMapper.selectByPrimaryKey(bid);

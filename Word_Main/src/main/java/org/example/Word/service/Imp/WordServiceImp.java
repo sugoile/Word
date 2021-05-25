@@ -1,5 +1,6 @@
 package org.example.Word.service.Imp;
 
+import org.example.Word.Po.WBookChoose_PO;
 import org.example.Word.dto.Classification;
 import org.example.Word.dto.ClassificationChoose;
 import org.example.Word.dto.WordBookChoose;
@@ -43,7 +44,7 @@ public class WordServiceImp implements WordService {
     }
 
     @Override
-    public List<Classification> ClassificationList() {
+    public List<Classification> ClassificationList(long uid) {
         List<Classification> classifications = new ArrayList<>();
         List<WClassification> wClassifications = wClassificationMapper.selectByExample(new WClassificationExample());
         for (WClassification c : wClassifications){
@@ -51,11 +52,20 @@ public class WordServiceImp implements WordService {
             wClassificationBookExample.createCriteria().andCidEqualTo(c.getId());
             List<WClassificationBook> wClassificationBooks = wClassificationBookMapper.selectByExample(wClassificationBookExample);
             if(wClassificationBooks != null && wClassificationBooks.size() > 0){
-                List<WBook> wBooks = new ArrayList<>();
+                List<WBookChoose_PO> wBooks = new ArrayList<>();
                 for (WClassificationBook cb : wClassificationBooks){
-                    wBooks.add(wBookMapper.selectByPrimaryKey(cb.getBid()));
+                    WBook wBook = wBookMapper.selectByPrimaryKey(cb.getBid());
+                    WBookChoose_PO wBookChoose_po = new WBookChoose_PO(wBook.getId(), wBook.getBookname(), wBook.getWordcount(),
+                            wBook.getRanges(), false);
+                    UAdminBookExample uAdminBookExample = new UAdminBookExample();
+                    uAdminBookExample.createCriteria().andBidEqualTo(wBook.getId()).andUidEqualTo(uid);
+                    List<UAdminBook> uAdminBooks = uAdminBookMapper.selectByExample(uAdminBookExample);
+                    if(uAdminBooks.size() > 0){
+                        wBookChoose_po.setFlag(true);
+                    }
+                    wBooks.add(wBookChoose_po);
                 }
-                classifications.add(new Classification(c.getId(), c.getClassification(), wBooks));
+                classifications.add(new Classification(c.getId(), c.getClassification(),  wBooks));
             }
         }
         return classifications;

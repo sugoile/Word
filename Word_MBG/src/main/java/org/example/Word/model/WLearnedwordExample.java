@@ -403,6 +403,316 @@ public class WLearnedwordExample {
             addCriterion("iscorrect not between", value1, value2, "iscorrect");
             return (Criteria) this;
         }
+
+        public Criteria andStudyTimeYearIsNull() {
+            addCriterion("study_time_year is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearIsNotNull() {
+            addCriterion("study_time_year is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearEqualTo(Integer value) {
+            addCriterion("study_time_year =", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearNotEqualTo(Integer value) {
+            addCriterion("study_time_year <>", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearGreaterThan(Integer value) {
+            addCriterion("study_time_year >", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearGreaterThanOrEqualTo(Integer value) {
+            addCriterion("study_time_year >=", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearLessThan(Integer value) {
+            addCriterion("study_time_year <", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearLessThanOrEqualTo(Integer value) {
+            addCriterion("study_time_year <=", value, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearIn(List<Integer> values) {
+            addCriterion("study_time_year in", values, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearNotIn(List<Integer> values) {
+            addCriterion("study_time_year not in", values, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_year between", value1, value2, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeYearNotBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_year not between", value1, value2, "studyTimeYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthIsNull() {
+            addCriterion("study_time_month is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthIsNotNull() {
+            addCriterion("study_time_month is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthEqualTo(Integer value) {
+            addCriterion("study_time_month =", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthNotEqualTo(Integer value) {
+            addCriterion("study_time_month <>", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthGreaterThan(Integer value) {
+            addCriterion("study_time_month >", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("study_time_month >=", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthLessThan(Integer value) {
+            addCriterion("study_time_month <", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthLessThanOrEqualTo(Integer value) {
+            addCriterion("study_time_month <=", value, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthIn(List<Integer> values) {
+            addCriterion("study_time_month in", values, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthNotIn(List<Integer> values) {
+            addCriterion("study_time_month not in", values, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_month between", value1, value2, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeMonthNotBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_month not between", value1, value2, "studyTimeMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayIsNull() {
+            addCriterion("study_time_day is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayIsNotNull() {
+            addCriterion("study_time_day is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayEqualTo(Integer value) {
+            addCriterion("study_time_day =", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayNotEqualTo(Integer value) {
+            addCriterion("study_time_day <>", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayGreaterThan(Integer value) {
+            addCriterion("study_time_day >", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("study_time_day >=", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayLessThan(Integer value) {
+            addCriterion("study_time_day <", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayLessThanOrEqualTo(Integer value) {
+            addCriterion("study_time_day <=", value, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayIn(List<Integer> values) {
+            addCriterion("study_time_day in", values, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayNotIn(List<Integer> values) {
+            addCriterion("study_time_day not in", values, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_day between", value1, value2, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeDayNotBetween(Integer value1, Integer value2) {
+            addCriterion("study_time_day not between", value1, value2, "studyTimeDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeIsNull() {
+            addCriterion("study_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeIsNotNull() {
+            addCriterion("study_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeEqualTo(String value) {
+            addCriterion("study_time =", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeNotEqualTo(String value) {
+            addCriterion("study_time <>", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeGreaterThan(String value) {
+            addCriterion("study_time >", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("study_time >=", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeLessThan(String value) {
+            addCriterion("study_time <", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeLessThanOrEqualTo(String value) {
+            addCriterion("study_time <=", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeLike(String value) {
+            addCriterion("study_time like", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeNotLike(String value) {
+            addCriterion("study_time not like", value, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeIn(List<String> values) {
+            addCriterion("study_time in", values, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeNotIn(List<String> values) {
+            addCriterion("study_time not in", values, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeBetween(String value1, String value2) {
+            addCriterion("study_time between", value1, value2, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudyTimeNotBetween(String value1, String value2) {
+            addCriterion("study_time not between", value1, value2, "studyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentIsNull() {
+            addCriterion("recent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentIsNotNull() {
+            addCriterion("recent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentEqualTo(Integer value) {
+            addCriterion("recent =", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentNotEqualTo(Integer value) {
+            addCriterion("recent <>", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentGreaterThan(Integer value) {
+            addCriterion("recent >", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("recent >=", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentLessThan(Integer value) {
+            addCriterion("recent <", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentLessThanOrEqualTo(Integer value) {
+            addCriterion("recent <=", value, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentIn(List<Integer> values) {
+            addCriterion("recent in", values, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentNotIn(List<Integer> values) {
+            addCriterion("recent not in", values, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentBetween(Integer value1, Integer value2) {
+            addCriterion("recent between", value1, value2, "recent");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecentNotBetween(Integer value1, Integer value2) {
+            addCriterion("recent not between", value1, value2, "recent");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

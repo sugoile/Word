@@ -1,8 +1,9 @@
 package org.example.Word.service;
 
-import org.example.Word.Po.AdminRegister_PO;
 import org.example.Word.dto.AdminInfo_Param;
-import org.example.Word.model.UAdmin;
+import org.example.Word.dto.LearnedCount;
+
+import java.util.List;
 
 /**
  * @des:
@@ -14,4 +15,8 @@ public interface IndexService {
     AdminInfo_Param login(String username, String passwrod);
 
     int Register(String username, String passwrod);
+
+    List<Integer> RecordTimeForWord(long uid);
+
+    List<LearnedCount> BookLearnedCount(long uid);
 }

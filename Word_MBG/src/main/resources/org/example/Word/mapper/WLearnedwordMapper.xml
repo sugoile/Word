@@ -7,6 +7,11 @@
     <result column="bid" jdbcType="BIGINT" property="bid" />
     <result column="wid" jdbcType="BIGINT" property="wid" />
     <result column="iscorrect" jdbcType="INTEGER" property="iscorrect" />
+    <result column="study_time_year" jdbcType="INTEGER" property="studyTimeYear" />
+    <result column="study_time_month" jdbcType="INTEGER" property="studyTimeMonth" />
+    <result column="study_time_day" jdbcType="INTEGER" property="studyTimeDay" />
+    <result column="study_time" jdbcType="VARCHAR" property="studyTime" />
+    <result column="recent" jdbcType="INTEGER" property="recent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, uid, bid, wid, iscorrect
+    id, uid, bid, wid, iscorrect, study_time_year, study_time_month, study_time_day, 
+    study_time, recent
   </sql>
   <select id="selectByExample" parameterType="org.example.Word.model.WLearnedwordExample" resultMap="BaseResultMap">
     select
@@ -103,10 +109,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into w_learnedword (uid, bid, wid, iscorrect
-      )
-    values (#{uid,jdbcType=BIGINT}, #{bid,jdbcType=BIGINT}, #{wid,jdbcType=BIGINT}, #{iscorrect,jdbcType=INTEGER}
-      )
+    insert into w_learnedword (uid, bid, wid, iscorrect, 
+      study_time_year, study_time_month, study_time_day, 
+      study_time, recent)
+    values (#{uid,jdbcType=BIGINT}, #{bid,jdbcType=BIGINT}, #{wid,jdbcType=BIGINT}, #{iscorrect,jdbcType=INTEGER}, 
+      #{studyTimeYear,jdbcType=INTEGER}, #{studyTimeMonth,jdbcType=INTEGER}, #{studyTimeDay,jdbcType=INTEGER}, 
+      #{studyTime,jdbcType=VARCHAR}, #{recent,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.example.Word.model.WLearnedword">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -126,6 +134,21 @@
       <if test="iscorrect != null">
         iscorrect,
       </if>
+      <if test="studyTimeYear != null">
+        study_time_year,
+      </if>
+      <if test="studyTimeMonth != null">
+        study_time_month,
+      </if>
+      <if test="studyTimeDay != null">
+        study_time_day,
+      </if>
+      <if test="studyTime != null">
+        study_time,
+      </if>
+      <if test="recent != null">
+        recent,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -139,6 +162,21 @@
       </if>
       <if test="iscorrect != null">
         #{iscorrect,jdbcType=INTEGER},
+      </if>
+      <if test="studyTimeYear != null">
+        #{studyTimeYear,jdbcType=INTEGER},
+      </if>
+      <if test="studyTimeMonth != null">
+        #{studyTimeMonth,jdbcType=INTEGER},
+      </if>
+      <if test="studyTimeDay != null">
+        #{studyTimeDay,jdbcType=INTEGER},
+      </if>
+      <if test="studyTime != null">
+        #{studyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recent != null">
+        #{recent,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +204,21 @@
       <if test="record.iscorrect != null">
         iscorrect = #{record.iscorrect,jdbcType=INTEGER},
       </if>
+      <if test="record.studyTimeYear != null">
+        study_time_year = #{record.studyTimeYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.studyTimeMonth != null">
+        study_time_month = #{record.studyTimeMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.studyTimeDay != null">
+        study_time_day = #{record.studyTimeDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.studyTime != null">
+        study_time = #{record.studyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recent != null">
+        recent = #{record.recent,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +230,12 @@
       uid = #{record.uid,jdbcType=BIGINT},
       bid = #{record.bid,jdbcType=BIGINT},
       wid = #{record.wid,jdbcType=BIGINT},
-      iscorrect = #{record.iscorrect,jdbcType=INTEGER}
+      iscorrect = #{record.iscorrect,jdbcType=INTEGER},
+      study_time_year = #{record.studyTimeYear,jdbcType=INTEGER},
+      study_time_month = #{record.studyTimeMonth,jdbcType=INTEGER},
+      study_time_day = #{record.studyTimeDay,jdbcType=INTEGER},
+      study_time = #{record.studyTime,jdbcType=VARCHAR},
+      recent = #{record.recent,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +255,21 @@
       <if test="iscorrect != null">
         iscorrect = #{iscorrect,jdbcType=INTEGER},
       </if>
+      <if test="studyTimeYear != null">
+        study_time_year = #{studyTimeYear,jdbcType=INTEGER},
+      </if>
+      <if test="studyTimeMonth != null">
+        study_time_month = #{studyTimeMonth,jdbcType=INTEGER},
+      </if>
+      <if test="studyTimeDay != null">
+        study_time_day = #{studyTimeDay,jdbcType=INTEGER},
+      </if>
+      <if test="studyTime != null">
+        study_time = #{studyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recent != null">
+        recent = #{recent,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -205,7 +278,12 @@
     set uid = #{uid,jdbcType=BIGINT},
       bid = #{bid,jdbcType=BIGINT},
       wid = #{wid,jdbcType=BIGINT},
-      iscorrect = #{iscorrect,jdbcType=INTEGER}
+      iscorrect = #{iscorrect,jdbcType=INTEGER},
+      study_time_year = #{studyTimeYear,jdbcType=INTEGER},
+      study_time_month = #{studyTimeMonth,jdbcType=INTEGER},
+      study_time_day = #{studyTimeDay,jdbcType=INTEGER},
+      study_time = #{studyTime,jdbcType=VARCHAR},
+      recent = #{recent,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

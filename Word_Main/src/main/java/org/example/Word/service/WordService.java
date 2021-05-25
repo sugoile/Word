@@ -15,7 +15,7 @@ import java.util.List;
 public interface WordService {
     List<WBook> BookList();
 
-    List<Classification> ClassificationList();
+    List<Classification> ClassificationList(long uid);
 
     List<WBook> learingBook(long uid);
 

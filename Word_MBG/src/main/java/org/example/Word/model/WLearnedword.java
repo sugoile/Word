@@ -13,6 +13,16 @@ public class WLearnedword implements Serializable {
 
     private Integer iscorrect;
 
+    private Integer studyTimeYear;
+
+    private Integer studyTimeMonth;
+
+    private Integer studyTimeDay;
+
+    private String studyTime;
+
+    private Integer recent;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -53,5 +63,45 @@ public class WLearnedword implements Serializable {
 
     public void setIscorrect(Integer iscorrect) {
         this.iscorrect = iscorrect;
+    }
+
+    public Integer getStudyTimeYear() {
+        return studyTimeYear;
+    }
+
+    public void setStudyTimeYear(Integer studyTimeYear) {
+        this.studyTimeYear = studyTimeYear;
+    }
+
+    public Integer getStudyTimeMonth() {
+        return studyTimeMonth;
+    }
+
+    public void setStudyTimeMonth(Integer studyTimeMonth) {
+        this.studyTimeMonth = studyTimeMonth;
+    }
+
+    public Integer getStudyTimeDay() {
+        return studyTimeDay;
+    }
+
+    public void setStudyTimeDay(Integer studyTimeDay) {
+        this.studyTimeDay = studyTimeDay;
+    }
+
+    public String getStudyTime() {
+        return studyTime;
+    }
+
+    public void setStudyTime(String studyTime) {
+        this.studyTime = studyTime;
+    }
+
+    public Integer getRecent() {
+        return recent;
+    }
+
+    public void setRecent(Integer recent) {
+        this.recent = recent;
     }
 }

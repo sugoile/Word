@@ -21,9 +21,20 @@ public class StudyController {
     @Autowired
     private StudyService studyService;
 
-    @GetMapping("/studyWordList")
-    public REData StudyWordList(@RequestParam("bid") long bid, @RequestParam(value = "wordnum", defaultValue = "10") int wordnum){
-        return REData.success("查询需要学习的单词成功", studyService.StudyWordList(bid, wordnum));
+    @GetMapping("/studyWordList/{uid}")
+    public REData StudyWordList(@PathVariable("uid") long uid, @RequestParam("bid") long bid, @RequestParam(value = "wordnum", defaultValue = "10") int wordnum){
+        return REData.success("查询需要学习的单词成功", studyService.StudyWordList(uid, bid, wordnum));
+    }
+
+    //随机测验
+    @GetMapping("/randomTest")
+    public REData RandomTest(){
+        return REData.success("查询随机测试的单词成功", studyService.RandomTest());
+    }
+
+    @GetMapping("/lastReciteWord/{uid}")
+    public REData LastReciteWord(@PathVariable("uid") long uid){
+        return REData.success("查询上一次学习过的单词成功", studyService.LastReciteWord(uid));
     }
 
     //设置成堆提交（ishide属性（隐藏某一本的状态））没有ishide属性
@@ -56,8 +67,8 @@ public class StudyController {
         }
     }
 
-    @PostMapping("/commitLearnedWord/{uid}")
-    public REData commitLearnedWord(@RequestBody List<CorrectWord> words, @RequestParam("bid") long bid, @PathVariable("uid")long uid){
+    @PostMapping("/commitLearnedWord/{uid}/{bid}")
+    public REData commitLearnedWord(@RequestBody List<CorrectWord> words, @PathVariable("bid") long bid, @PathVariable("uid")long uid){
         return REData.success("提交学过的单词成功", studyService.commitLearnedWord(words, bid, uid));
     }
 }

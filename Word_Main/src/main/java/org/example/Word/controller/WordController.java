@@ -31,9 +31,9 @@ public class WordController {
         return REData.success("正在学习的单词书查询成功", wordService.learingBook(uid));
     }
 
-    @GetMapping("/classificationList")
-    public REData ClassificationList(){
-        return REData.success("查询成功", wordService.ClassificationList());
+    @GetMapping("/classificationList/{uid}")
+    public REData ClassificationList(@PathVariable("uid") long uid){
+        return REData.success("查询成功", wordService.ClassificationList(uid));
     }
 
     @GetMapping("/classificationAndUserBook/{uid}")
